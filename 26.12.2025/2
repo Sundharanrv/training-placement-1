@@ -1,0 +1,18 @@
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] a=new int[n];
+        for(int i=0;i<n;i++) a[i]=sc.nextInt();
+        int[] dp=new int[n];
+        int len=0;
+        for(int x:a){
+            int i=Arrays.binarySearch(dp,0,len,x);
+            if(i<0) i=-(i+1);
+            dp[i]=x;
+            if(i==len) len++;
+        }
+        System.out.println(len);
+    }
+}
