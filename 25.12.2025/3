@@ -1,0 +1,27 @@
+import java.util.*;
+class Main{
+    static int[] p;
+    static int find(int x){
+        if(p[x]!=x) p[x]=find(p[x]);
+        return p[x];
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt(),e=sc.nextInt();
+        int[][] ed=new int[e][3];
+        for(int i=0;i<e;i++)
+            for(int j=0;j<3;j++) ed[i][j]=sc.nextInt();
+        Arrays.sort(ed,Comparator.comparingInt(a->a[2]));
+        p=new int[n];
+        for(int i=0;i<n;i++) p[i]=i;
+        int cost=0;
+        for(int[] x:ed){
+            int a=find(x[0]),b=find(x[1]);
+            if(a!=b){
+                p[a]=b;
+                cost+=x[2];
+            }
+        }
+        System.out.println(cost);
+    }
+}
