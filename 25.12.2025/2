@@ -1,0 +1,24 @@
+import java.util.*;
+class Main{
+    static int n,count=0;
+    static boolean[] col,d1,d2;
+    static void solve(int r){
+        if(r==n){count++;return;}
+        for(int c=0;c<n;c++){
+            if(!col[c]&&!d1[r-c+n]&&!d2[r+c]){
+                col[c]=d1[r-c+n]=d2[r+c]=true;
+                solve(r+1);
+                col[c]=d1[r-c+n]=d2[r+c]=false;
+            }
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        n=sc.nextInt();
+        col=new boolean[n];
+        d1=new boolean[2*n];
+        d2=new boolean[2*n];
+        solve(0);
+        System.out.println(count);
+    }
+}
