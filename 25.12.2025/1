@@ -1,0 +1,26 @@
+import java.util.*;
+class Main{
+    static List<List<Integer>> g;
+    static boolean[] vis,rec;
+    static boolean dfs(int u){
+        vis[u]=true;rec[u]=true;
+        for(int v:g.get(u)){
+            if(!vis[v]&&dfs(v)) return true;
+            if(rec[v]) return true;
+        }
+        rec[u]=false;
+        return false;
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt(),e=sc.nextInt();
+        g=new ArrayList<>();
+        for(int i=0;i<n;i++) g.add(new ArrayList<>());
+        for(int i=0;i<e;i++) g.get(sc.nextInt()).add(sc.nextInt());
+        vis=new boolean[n];rec=new boolean[n];
+        boolean cycle=false;
+        for(int i=0;i<n;i++)
+            if(!vis[i]&&dfs(i)) cycle=true;
+        System.out.println(cycle);
+    }
+}
