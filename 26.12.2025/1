@@ -1,0 +1,34 @@
+import java.util.*;
+class Main{
+    static class P implements Comparable<P>{
+        int n,w;
+        P(int n,int w){this.n=n;this.w=w;}
+        public int compareTo(P o){return this.w-o.w;}
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt(),e=sc.nextInt();
+        List<List<P>> g=new ArrayList<>();
+        for(int i=0;i<n;i++) g.add(new ArrayList<>());
+        for(int i=0;i<e;i++){
+            int u=sc.nextInt(),v=sc.nextInt(),w=sc.nextInt();
+            g.get(u).add(new P(v,w));
+        }
+        int s=sc.nextInt();
+        int[] d=new int[n];
+        Arrays.fill(d,Integer.MAX_VALUE);
+        d[s]=0;
+        PriorityQueue<P> pq=new PriorityQueue<>();
+        pq.add(new P(s,0));
+        while(!pq.isEmpty()){
+            P p=pq.poll();
+            for(P x:g.get(p.n)){
+                if(d[p.n]+x.w<d[x.n]){
+                    d[x.n]=d[p.n]+x.w;
+                    pq.add(new P(x.n,d[x.n]));
+                }
+            }
+        }
+        System.out.println(Arrays.toString(d));
+    }
+}
